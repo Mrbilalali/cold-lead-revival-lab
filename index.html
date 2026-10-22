@@ -1,0 +1,686 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light" />
+    <link rel="icon" href="data:," />
+    <title>Cold-Lead Revival Lab</title>
+    <meta property="og:title" content="Cold-Lead Revival Lab — AI Follow-Up Demo" />
+    <meta property="og:description" content="Watch an AI follow-up sequence revive a 94-day-dead lead and re-book the appointment — in under 90 seconds. Scripted simulation." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://cold-lead-revival-lab-mr-bilal-alis-projects.vercel.app" />
+    <meta property="og:image" content="https://cold-lead-revival-lab-mr-bilal-alis-projects.vercel.app/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="627" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Cold-Lead Revival Lab — AI Follow-Up Demo" />
+    <meta name="twitter:description" content="Watch an AI follow-up sequence revive a 94-day-dead lead and re-book the appointment — in under 90 seconds. Scripted simulation." />
+    <meta name="twitter:image" content="https://cold-lead-revival-lab-mr-bilal-alis-projects.vercel.app/og-image.png" />
+    <style>
+      :root {
+        --bg: #eef4ef;
+        --bg-deep: #e2ede3;
+        --surface: #ffffff;
+        --surface-soft: #f5f9f5;
+        --ink: #18302a;
+        --ink-soft: #47635a;
+        --ink-faint: #71867d;
+        --accent: #0d6b4d;
+        --accent-dark: #084d36;
+        --accent-soft: #dcefe3;
+        --accent-line: #bcdcc9;
+        --amber: #9a6206;
+        --amber-bg: #fdf1d7;
+        --red: #a4342a;
+        --red-bg: #fbeae7;
+        --line: #d5e2d8;
+        --shadow: 0 10px 30px rgba(13, 70, 52, 0.10), 0 2px 6px rgba(13, 70, 52, 0.06);
+        --radius: 18px;
+      }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        font-size: 16px;
+        line-height: 1.55;
+        -webkit-font-smoothing: antialiased;
+      }
+      .wrap { max-width: 620px; margin: 0 auto; padding: 22px 16px 48px; }
+
+      /* ---------- Header ---------- */
+      .sim-badge {
+        display: inline-flex; align-items: center; gap: 7px;
+        background: var(--amber-bg); color: var(--amber);
+        border: 1px solid #ecd9a8;
+        font-size: 12.5px; font-weight: 700; letter-spacing: 0.02em;
+        padding: 5px 11px; border-radius: 999px;
+      }
+      .sim-badge .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--amber); flex: none; }
+      h1 {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(30px, 7.5vw, 40px);
+        line-height: 1.12; font-weight: 700;
+        margin: 14px 0 10px; letter-spacing: -0.01em;
+      }
+      .lede { margin: 0 0 6px; font-size: 17px; color: var(--ink-soft); max-width: 52ch; }
+      .lede strong { color: var(--ink); }
+      .byline { margin: 10px 0 0; font-size: 13.5px; color: var(--ink-faint); }
+
+      /* ---------- Progress ---------- */
+      .progress {
+        display: flex; gap: 6px; margin: 22px 0 18px;
+        list-style: none; padding: 0;
+      }
+      .progress li {
+        flex: 1; text-align: center; font-size: 11.5px; font-weight: 700;
+        color: var(--ink-faint); padding-top: 10px; position: relative;
+        letter-spacing: 0.01em;
+      }
+      .progress li::before {
+        content: ""; position: absolute; top: 0; left: 0; right: 0; height: 5px;
+        border-radius: 99px; background: var(--line);
+      }
+      .progress li.active { color: var(--accent-dark); }
+      .progress li.active::before { background: var(--accent); }
+      .progress li.done { color: var(--accent); }
+      .progress li.done::before { background: var(--accent); }
+
+      /* ---------- Cards ---------- */
+      .card {
+        background: var(--surface); border: 1px solid var(--line);
+        border-radius: var(--radius); box-shadow: var(--shadow);
+        padding: 20px; margin-bottom: 16px;
+      }
+      .card h2 { font-size: 19px; margin: 0 0 4px; line-height: 1.3; }
+      .card .sub { margin: 0 0 14px; color: var(--ink-soft); font-size: 14.5px; }
+      .stage-tag {
+        display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: 0.09em;
+        text-transform: uppercase; color: var(--accent);
+        background: var(--accent-soft); border-radius: 6px; padding: 3px 8px; margin-bottom: 10px;
+      }
+
+      /* CRM card */
+      .crm-head { display: flex; gap: 14px; align-items: center; margin-bottom: 14px; }
+      .avatar {
+        width: 52px; height: 52px; border-radius: 50%; flex: none;
+        background: var(--accent-soft); color: var(--accent-dark);
+        display: flex; align-items: center; justify-content: center;
+        font-weight: 800; font-size: 19px; border: 1px solid var(--accent-line);
+      }
+      .crm-head .name { font-size: 19px; font-weight: 800; line-height: 1.2; }
+      .crm-head .proj { color: var(--ink-soft); font-size: 14px; }
+      .status-pill {
+        margin-left: auto; flex: none;
+        background: var(--red-bg); color: var(--red);
+        font-size: 12px; font-weight: 800; padding: 5px 10px; border-radius: 999px;
+        border: 1px solid #efc9c3;
+      }
+      .status-pill.live { background: var(--accent-soft); color: var(--accent-dark); border-color: var(--accent-line); }
+      .crm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 16px; margin: 0 0 16px; }
+      .crm-grid dt { font-size: 11.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint); margin: 0; }
+      .crm-grid dd { margin: 1px 0 0; font-size: 15px; font-weight: 600; }
+      .crm-note {
+        background: var(--surface-soft); border: 1px dashed var(--accent-line);
+        border-radius: 12px; padding: 11px 13px; font-size: 14px; color: var(--ink-soft); margin: 0 0 18px;
+      }
+      .crm-note strong { color: var(--ink); }
+
+      /* Buttons */
+      .btn {
+        display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+        font: inherit; font-weight: 700; font-size: 16px;
+        border: none; cursor: pointer; border-radius: 12px;
+        padding: 14px 20px; text-decoration: none;
+        transition: background 0.15s ease, transform 0.1s ease;
+      }
+      .btn:active { transform: scale(0.985); }
+      .btn-primary { background: var(--accent); color: #fff; width: 100%; }
+      .btn-primary:hover { background: var(--accent-dark); }
+      .btn-primary:disabled { background: #9dbfab; cursor: default; }
+      .btn-ghost {
+        background: transparent; color: var(--accent-dark);
+        border: 1.5px solid var(--accent-line); width: 100%;
+      }
+      .btn-ghost:hover { background: var(--accent-soft); }
+      .btn:focus-visible, .choice:focus-visible, .slot:focus-visible { outline: 3px solid #7cc7a5; outline-offset: 2px; }
+
+      .timer-chip {
+        display: none; align-items: center; gap: 7px;
+        font-size: 13px; font-weight: 700; color: var(--accent-dark);
+        background: var(--accent-soft); border: 1px solid var(--accent-line);
+        border-radius: 999px; padding: 5px 12px; margin-bottom: 14px;
+        font-variant-numeric: tabular-nums;
+      }
+      .timer-chip.on { display: inline-flex; }
+
+      /* Choices */
+      .choices { display: grid; gap: 10px; margin-bottom: 4px; }
+      .choice {
+        font: inherit; text-align: left; cursor: pointer;
+        background: var(--surface-soft); border: 1.5px solid var(--line);
+        border-radius: 14px; padding: 14px 16px; width: 100%;
+        transition: border-color 0.15s ease, background 0.15s ease;
+      }
+      .choice:hover { border-color: var(--accent-line); }
+      .choice .t { display: block; font-weight: 800; font-size: 15.5px; color: var(--ink); }
+      .choice .d { display: block; font-size: 13.5px; color: var(--ink-soft); margin-top: 2px; }
+      .choice.selected { border-color: var(--accent); background: var(--accent-soft); }
+      .choice:disabled { cursor: default; opacity: 0.75; }
+      .choice.selected:disabled { opacity: 1; }
+
+      /* Chat thread */
+      .thread { display: flex; flex-direction: column; gap: 10px; margin: 4px 0 16px; }
+      .msg { max-width: 88%; padding: 11px 14px; border-radius: 16px; font-size: 15px; line-height: 1.5; }
+      .msg .who { display: block; font-size: 11px; font-weight: 800; letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 4px; opacity: 0.75; }
+      .msg.out { align-self: flex-end; background: var(--accent); color: #fff; border-bottom-right-radius: 5px; }
+      .msg.in { align-self: flex-start; background: var(--surface-soft); border: 1px solid var(--line); border-bottom-left-radius: 5px; }
+      .msg.draft { align-self: stretch; max-width: 100%; background: #fffdf4; border: 1.5px dashed #d9c98a; color: var(--ink); border-radius: 14px; }
+      .msg.draft .who { color: var(--amber); opacity: 1; }
+      .sys-note {
+        align-self: center; text-align: center; font-size: 12.5px; font-weight: 600;
+        color: var(--ink-faint); background: var(--bg-deep);
+        padding: 5px 12px; border-radius: 999px; max-width: 92%;
+      }
+      .typing { display: inline-flex; gap: 4px; padding: 4px 2px; }
+      .typing span { width: 7px; height: 7px; border-radius: 50%; background: var(--ink-faint); animation: blink 1.1s infinite; }
+      .typing span:nth-child(2) { animation-delay: 0.18s; }
+      .typing span:nth-child(3) { animation-delay: 0.36s; }
+      @keyframes blink { 0%, 80%, 100% { opacity: 0.25; } 40% { opacity: 1; } }
+
+      /* Intent card */
+      .intent {
+        border: 1.5px solid var(--accent-line); background: var(--accent-soft);
+        border-radius: 14px; padding: 14px 16px; margin: 0 0 16px;
+      }
+      .intent.negative { border-color: #efc9c3; background: var(--red-bg); }
+      .intent .row { display: flex; justify-content: space-between; gap: 12px; font-size: 14.5px; padding: 3px 0; }
+      .intent .row .k { color: var(--ink-soft); font-weight: 600; }
+      .intent .row .v { font-weight: 800; text-align: right; }
+      .intent .label { font-size: 11px; font-weight: 800; letter-spacing: 0.09em; text-transform: uppercase; color: var(--accent-dark); margin: 0 0 6px; }
+      .intent.negative .label { color: var(--red); }
+
+      .send-row { display: flex; flex-direction: column; gap: 8px; }
+      .fineprint { font-size: 12.5px; color: var(--ink-faint); text-align: center; margin: 0; }
+
+      /* Slots */
+      .slots { display: grid; gap: 10px; margin: 0 0 6px; }
+      .slot {
+        font: inherit; cursor: pointer; text-align: left;
+        background: var(--surface-soft); border: 1.5px solid var(--line);
+        border-radius: 14px; padding: 13px 16px; width: 100%;
+        display: flex; justify-content: space-between; align-items: center; gap: 10px;
+      }
+      .slot .when { font-weight: 800; font-size: 15.5px; }
+      .slot .kind { font-size: 13px; color: var(--ink-soft); }
+      .slot.selected { border-color: var(--accent); background: var(--accent-soft); }
+      .slot:disabled { cursor: default; opacity: 0.7; }
+      .slot.selected:disabled { opacity: 1; }
+
+      /* Payoff */
+      .payoff { border: 2px solid var(--accent); }
+      .payoff.neutral { border-color: var(--line); }
+      .payoff-icon {
+        width: 56px; height: 56px; border-radius: 50%;
+        background: var(--accent); color: #fff;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 27px; font-weight: 800; margin-bottom: 12px;
+      }
+      .payoff.neutral .payoff-icon { background: var(--ink-soft); }
+      .payoff h2 { font-size: 23px; }
+      .appt-box {
+        background: var(--surface-soft); border: 1px solid var(--line);
+        border-radius: 12px; padding: 13px 15px; margin: 0 0 14px; font-size: 15px;
+      }
+      .appt-box .big { font-weight: 800; font-size: 16.5px; display: block; }
+      .revival-stat {
+        display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+        background: var(--accent-soft); border-radius: 12px; padding: 13px 15px; margin: 0 0 18px;
+      }
+      .revival-stat .n { font-size: 30px; font-weight: 800; color: var(--accent-dark); font-variant-numeric: tabular-nums; line-height: 1; }
+      .revival-stat .t { font-size: 14px; font-weight: 600; color: var(--accent-dark); }
+      .crm-update { margin: 0 0 18px; padding: 0; list-style: none; font-size: 14.5px; }
+      .crm-update li { padding: 7px 0 7px 26px; position: relative; border-bottom: 1px solid var(--line); }
+      .crm-update li:last-child { border-bottom: none; }
+      .crm-update li::before { content: "✓"; position: absolute; left: 2px; color: var(--accent); font-weight: 800; }
+      .crm-update li b { font-weight: 800; }
+
+      .cta-block {
+        background: var(--accent-dark); color: #eaf5ee; border-radius: var(--radius);
+        padding: 22px 20px; margin-bottom: 16px; text-align: left;
+      }
+      .cta-block h2 { color: #fff; font-size: 21px; margin: 0 0 6px; }
+      .cta-block p { margin: 0 0 16px; font-size: 15px; color: #cfe7d8; }
+      .cta-block .btn { background: #fff; color: var(--accent-dark); }
+      .cta-block .btn:hover { background: var(--accent-soft); }
+      .cta-block .micro { font-size: 12.5px; color: #a9cdb8; margin: 10px 0 0; text-align: center; }
+
+      footer { text-align: center; color: var(--ink-faint); font-size: 13px; padding: 6px 8px 0; }
+      footer p { margin: 0 0 6px; }
+
+      [hidden] { display: none !important; }
+      .reveal { animation: rise 0.45s ease both; }
+      @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        .reveal, .typing span { animation: none; }
+      }
+      @media (min-width: 560px) {
+        .wrap { padding-top: 34px; }
+        .card { padding: 24px; }
+        .msg { max-width: 80%; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <span class="sim-badge"><span class="dot"></span> Scripted simulation — fictional lead, nothing is really sent</span>
+      <h1>Cold-Lead Revival Lab</h1>
+      <p class="lede">Every CRM has them: quotes that went quiet months ago. This lab runs an <strong>AI follow-up sequence on a lead that has been cold for 94 days</strong> — and you drive every step, from first nudge to booked appointment.</p>
+      <p class="byline">An interactive demo by Bilal Ali, AI Automation Expert · about 60 seconds, start to finish</p>
+
+      <ol class="progress" id="progress" aria-label="Demo progress">
+        <li class="active" data-step="1">Dead lead</li>
+        <li data-step="2">AI outreach</li>
+        <li data-step="3">Reply &amp; intent</li>
+        <li data-step="4">Outcome</li>
+      </ol>
+
+      <div class="timer-chip" id="timerChip" role="status">⏱ Revival timer: <span id="timerVal">0s</span></div>
+
+      <!-- ============ STEP 1: DEAD LEAD ============ -->
+      <section class="card" id="step1" aria-labelledby="step1Title">
+        <span class="stage-tag">Step 1 · The dead lead</span>
+        <div class="crm-head">
+          <div class="avatar" aria-hidden="true">ER</div>
+          <div>
+            <div class="name">Emma R.</div>
+            <div class="proj">Kitchen remodel — quote requested</div>
+          </div>
+          <span class="status-pill" id="leadStatus">● Cold · 94 days</span>
+        </div>
+        <dl class="crm-grid">
+          <div><dt>Last contact</dt><dd>94 days ago</dd></div>
+          <div><dt>Follow-ups since</dt><dd>None</dd></div>
+          <div><dt>Quote status</dt><dd>Sent, never answered</dd></div>
+          <div><dt>Source</dt><dd>Website estimate form</dd></div>
+        </dl>
+        <p class="crm-note"><strong>CRM note:</strong> “Loved the design, said timing wasn't right. Never replied to the quote.” — In most CRMs, this lead is written off. Watch what one well-timed sequence does instead.</p>
+        <button class="btn btn-primary" id="runBtn" type="button">Run AI re-engagement →</button>
+      </section>
+
+      <!-- ============ STEP 2: ANGLE + DRAFT + SEND ============ -->
+      <section class="card" id="step2" hidden aria-labelledby="step2Title">
+        <span class="stage-tag">Step 2 · AI outreach</span>
+        <h2 id="step2Title">Pick the follow-up angle</h2>
+        <p class="sub">The AI drafts a personal message for whichever angle you choose — using Emma's project, her old quote, and the 94-day gap.</p>
+        <div class="choices" id="angleChoices" role="group" aria-label="Follow-up angle">
+          <button class="choice" type="button" data-angle="friendly">
+            <span class="t">Friendly check-in</span>
+            <span class="d">Warm, zero pressure. “Still on your mind, or shall we close the file?”</span>
+          </button>
+          <button class="choice" type="button" data-angle="seasonal">
+            <span class="t">Seasonal nudge</span>
+            <span class="d">A real reason to reply now: the fall booking window is closing.</span>
+          </button>
+          <button class="choice" type="button" data-angle="social">
+            <span class="t">Social proof</span>
+            <span class="d">Nearby projects finished since her quote — proof the timing works.</span>
+          </button>
+        </div>
+        <div id="draftZone" hidden>
+          <div class="thread">
+            <div class="msg draft" id="draftMsg">
+              <span class="who">AI draft · SMS · for your approval</span>
+              <span id="draftText"></span>
+            </div>
+          </div>
+          <div class="send-row">
+            <button class="btn btn-primary" id="sendBtn1" type="button">Send message</button>
+            <p class="fineprint">Simulated send — no real SMS leaves this page.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ STEP 3: REPLY + INTENT + RESPONSE ============ -->
+      <section class="card" id="step3" hidden aria-labelledby="step3Title">
+        <span class="stage-tag">Step 3 · The reply</span>
+        <h2 id="step3Title">Emma replies. You pick how.</h2>
+        <p class="sub">In the real system her reply arrives on its own. Here, choose a scenario and watch how the AI reads intent and responds.</p>
+        <div class="thread" id="thread3"></div>
+        <div class="choices" id="replyChoices" role="group" aria-label="Reply scenario">
+          <button class="choice" type="button" data-reply="interested">
+            <span class="t">“We're ready to talk again”</span>
+            <span class="d">The project is back on — she asks for another look.</span>
+          </button>
+          <button class="choice" type="button" data-reply="day">
+            <span class="t">“What days do you have?”</span>
+            <span class="d">Warm, but scheduling is the blocker.</span>
+          </button>
+          <button class="choice" type="button" data-reply="no">
+            <span class="t">“Please stop texting”</span>
+            <span class="d">A clear no — see how the AI handles an opt-out.</span>
+          </button>
+        </div>
+        <div id="intentZone" hidden>
+          <div class="intent" id="intentCard">
+            <p class="label">AI intent reading</p>
+            <div class="row"><span class="k">Intent</span><span class="v" id="intentVal"></span></div>
+            <div class="row"><span class="k">Confidence</span><span class="v" id="intentConf"></span></div>
+            <div class="row"><span class="k">Signals picked up</span><span class="v" id="intentSig"></span></div>
+            <div class="row"><span class="k">Next action</span><span class="v" id="intentNext"></span></div>
+          </div>
+          <div class="thread">
+            <div class="msg draft">
+              <span class="who">AI draft response · for your approval</span>
+              <span id="responseText"></span>
+            </div>
+          </div>
+          <div id="slotZone" hidden>
+            <p class="sub" style="margin-bottom:10px;"><strong>Your move:</strong> pick the slot to offer Emma first.</p>
+            <div class="slots" id="slotChoices">
+              <button class="slot" type="button" data-slot="Tuesday, Oct 27 · 9:30 AM">
+                <span><span class="when">Tuesday, Oct 27 · 9:30 AM</span><br /><span class="kind">Re-measure &amp; quote refresh visit</span></span>
+                <span aria-hidden="true">→</span>
+              </button>
+              <button class="slot" type="button" data-slot="Thursday, Oct 29 · 10:00 AM">
+                <span><span class="when">Thursday, Oct 29 · 10:00 AM</span><br /><span class="kind">Re-measure &amp; quote refresh visit</span></span>
+                <span aria-hidden="true">→</span>
+              </button>
+            </div>
+          </div>
+          <div class="send-row">
+            <button class="btn btn-primary" id="sendBtn2" type="button">Send response</button>
+            <p class="fineprint">Simulated send — no real SMS leaves this page.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ STEP 4: PAYOFF ============ -->
+      <section class="card payoff" id="step4" hidden aria-labelledby="payoffTitle">
+        <div class="payoff-icon" id="payoffIcon" aria-hidden="true">✓</div>
+        <span class="stage-tag">Step 4 · Outcome</span>
+        <h2 id="payoffTitle"></h2>
+        <p class="sub" id="payoffSub"></p>
+        <div class="appt-box" id="apptBox">
+          <span class="big" id="apptBig"></span>
+          <span id="apptDetail"></span>
+        </div>
+        <div class="revival-stat">
+          <span class="n" id="revivalNum"></span>
+          <span class="t" id="revivalText"></span>
+        </div>
+        <ul class="crm-update" id="crmUpdate"></ul>
+        <button class="btn btn-ghost" id="againBtn" type="button">↻ Start over — try a different path</button>
+      </section>
+
+      <!-- ============ CTA ============ -->
+      <section class="cta-block" id="ctaBlock" hidden>
+        <h2>Your CRM is sitting on leads like Emma.</h2>
+        <p>Old quotes, stalled estimates, “timing wasn't right” — a revival sequence works through all of them while you work. Book a free discovery call and we'll map out what it would recover from your list.</p>
+        <a class="btn" href="https://cal.com/mrbilalali/discovery-call" target="_blank" rel="noopener">Book a free discovery call →</a>
+        <p class="micro">30 minutes · no pitch deck · we look at your actual lead list</p>
+      </section>
+
+      <footer>
+        <p><strong>Honest framing:</strong> this is a scripted simulation. Emma is fictional, her replies are chosen by you, and no real messages are sent, no calls are placed, and no CRM is touched. The messages, intent reading, and booking flow shown are the same ones used in a live build.</p>
+        <p>Demo by Bilal Ali · AI Automation Expert</p>
+      </footer>
+    </div>
+
+    <script>
+      (function () {
+        "use strict";
+
+        var $ = function (id) { return document.getElementById(id); };
+
+        var step1 = $("step1"), step2 = $("step2"), step3 = $("step3"), step4 = $("step4");
+        var ctaBlock = $("ctaBlock");
+        var progressItems = document.querySelectorAll("#progress li");
+        var timerChip = $("timerChip"), timerVal = $("timerVal");
+        var timerStart = null, timerInt = null, finalSeconds = 0;
+
+        function setProgress(n) {
+          for (var i = 0; i < progressItems.length; i++) {
+            var s = parseInt(progressItems[i].getAttribute("data-step"), 10);
+            progressItems[i].classList.toggle("done", s < n);
+            progressItems[i].classList.toggle("active", s === n);
+          }
+        }
+        function show(el) {
+          el.hidden = false;
+          el.classList.remove("reveal");
+          void el.offsetWidth;
+          el.classList.add("reveal");
+          setTimeout(function () {
+            el.scrollIntoView({ behavior: "smooth", block: "start" });
+          }, 60);
+        }
+        function fmt(s) { return s + "s"; }
+        function startTimer() {
+          timerStart = Date.now();
+          timerChip.classList.add("on");
+          timerVal.textContent = "0s";
+          timerInt = setInterval(function () {
+            timerVal.textContent = fmt(Math.round((Date.now() - timerStart) / 1000));
+          }, 500);
+        }
+        function stopTimer() {
+          if (timerInt) { clearInterval(timerInt); timerInt = null; }
+          finalSeconds = Math.max(1, Math.round((Date.now() - timerStart) / 1000));
+          timerVal.textContent = fmt(finalSeconds);
+          return finalSeconds;
+        }
+
+        /* ---------- Step 1 -> 2 ---------- */
+        $("runBtn").addEventListener("click", function () {
+          this.disabled = true;
+          this.textContent = "AI re-engagement running…";
+          startTimer();
+          setProgress(2);
+          show(step2);
+        });
+
+        /* ---------- Step 2: angle + draft ---------- */
+        var drafts = {
+          friendly: "Hi Emma — Maple Street Remodeling here. We put together a kitchen quote for you a few months back and never heard either way. Totally fine if plans changed — just checking: is the remodel still something you want to do this year? A quick yes or no helps us keep your file right. Reply STOP to opt out.",
+          seasonal: "Hi Emma, Maple Street Remodeling here. Fall is our last open window for kitchen starts before the holidays, and your design from a few months back is still on file. Want us to refresh your quote numbers for a fall start before the calendar fills? Reply STOP to opt out.",
+          social: "Hi Emma — Maple Street Remodeling. Since your quote a few months back, we've finished two kitchens on your side of town, and both started exactly where you are: an old quote and bad timing. If you'd like, we'll re-walk your kitchen and update the estimate at no cost. Worth a look? Reply STOP to opt out."
+        };
+        var chosenAngle = null;
+        var angleBtns = document.querySelectorAll("#angleChoices .choice");
+        angleBtns.forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            chosenAngle = btn.getAttribute("data-angle");
+            angleBtns.forEach(function (b) { b.classList.toggle("selected", b === btn); });
+            $("draftText").textContent = drafts[chosenAngle];
+            if ($("draftZone").hidden) { show($("draftZone")); }
+          });
+        });
+
+        /* Simulated send helper */
+        function simulateSend(btn, doneLabel, cb) {
+          btn.disabled = true;
+          btn.textContent = "Sending…";
+          setTimeout(function () {
+            btn.textContent = doneLabel;
+            cb();
+          }, 900);
+        }
+
+        /* ---------- Step 2 send -> Step 3 ---------- */
+        $("sendBtn1").addEventListener("click", function () {
+          var btn = this;
+          simulateSend(btn, "✓ Sent (simulated)", function () {
+            setProgress(3);
+            var thread = $("thread3");
+            var out = document.createElement("div");
+            out.className = "msg out";
+            out.innerHTML = '<span class="who">Maple Street Remodeling · SMS</span>';
+            out.appendChild(document.createTextNode(drafts[chosenAngle]));
+            thread.appendChild(out);
+            var note = document.createElement("div");
+            note.className = "sys-note";
+            note.textContent = "Delivered · simulated — two days pass in Emma's world…";
+            thread.appendChild(note);
+            show(step3);
+          });
+        });
+
+        /* ---------- Step 3: reply scenarios ---------- */
+        var scenarios = {
+          interested: {
+            reply: "Hi! Yes, actually — we put it on hold over the summer but we're ready to talk about it again. Can someone come take another look at the kitchen?",
+            intent: "Re-engaged — ready to re-book",
+            conf: "High",
+            sig: "“Ready to talk again” · asked for a visit",
+            next: "Offer a concrete slot, confirm the booking",
+            response: "That's great to hear, Emma — welcome back. We can come by Thursday, Oct 29 at 10:00 AM to re-measure and update your quote: same design you loved, refreshed pricing. Shall I lock that in for you?"
+          },
+          day: {
+            reply: "Maybe, yeah. What days do you have next week? Mornings work best for me, I work afternoons.",
+            intent: "Warm — scheduling is the blocker",
+            conf: "Medium-high",
+            sig: "Asked for availability · stated a time preference",
+            next: "Offer two morning slots, let her pick",
+            response: ""
+          },
+          no: {
+            reply: "Thanks, but we decided to hold off on the kitchen for now. Please don't keep texting me.",
+            intent: "Opt-out — clear refusal",
+            conf: "High",
+            sig: "Explicit stop request · no future intent stated",
+            next: "Confirm opt-out once, close the file, suppress everywhere",
+            response: "Completely understand, Emma — thank you for letting us know. I've closed your file and you won't hear from us again. If the kitchen ever comes back on the list, you know where to find us. Take care."
+          }
+        };
+        var chosenReply = null, chosenSlot = null;
+        var replyBtns = document.querySelectorAll("#replyChoices .choice");
+
+        replyBtns.forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            if (chosenReply) { return; }
+            chosenReply = btn.getAttribute("data-reply");
+            replyBtns.forEach(function (b) {
+              b.classList.toggle("selected", b === btn);
+              b.disabled = true;
+            });
+            var sc = scenarios[chosenReply];
+            var thread = $("thread3");
+
+            var typing = document.createElement("div");
+            typing.className = "msg in";
+            typing.innerHTML = '<span class="typing" aria-hidden="true"><span></span><span></span><span></span></span>';
+            thread.appendChild(typing);
+            typing.scrollIntoView({ behavior: "smooth", block: "nearest" });
+
+            setTimeout(function () {
+              thread.removeChild(typing);
+              var inc = document.createElement("div");
+              inc.className = "msg in reveal";
+              inc.innerHTML = '<span class="who">Emma R. · SMS reply</span>';
+              inc.appendChild(document.createTextNode(sc.reply));
+              thread.appendChild(inc);
+
+              $("intentVal").textContent = sc.intent;
+              $("intentConf").textContent = sc.conf;
+              $("intentSig").textContent = sc.sig;
+              $("intentNext").textContent = sc.next;
+              $("intentCard").classList.toggle("negative", chosenReply === "no");
+
+              if (chosenReply === "day") {
+                $("responseText").textContent = "Of course, Emma — mornings it is. We have two openings next week for a re-measure visit. Pick whichever suits you and I'll confirm it right away:";
+                $("slotZone").hidden = false;
+                $("sendBtn2").disabled = true;
+                $("sendBtn2").textContent = "Pick a slot first";
+              } else {
+                $("responseText").textContent = sc.response;
+              }
+              show($("intentZone"));
+            }, 1100);
+          });
+        });
+
+        var slotBtns = document.querySelectorAll("#slotChoices .slot");
+        slotBtns.forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            chosenSlot = btn.getAttribute("data-slot");
+            slotBtns.forEach(function (b) {
+              b.classList.toggle("selected", b === btn);
+              b.disabled = true;
+            });
+            var send2 = $("sendBtn2");
+            send2.disabled = false;
+            send2.textContent = "Send response with this slot";
+          });
+        });
+
+        /* ---------- Step 3 send -> Payoff ---------- */
+        $("sendBtn2").addEventListener("click", function () {
+          var btn = this;
+          simulateSend(btn, "✓ Sent (simulated)", function () {
+            var secs = stopTimer();
+            setProgress(4);
+            buildPayoff(secs);
+            show(step4);
+            show(ctaBlock);
+            $("leadStatus").textContent = chosenReply === "no" ? "● Closed · opted out" : "● Re-booked";
+            $("leadStatus").classList.add("live");
+          });
+        });
+
+        function li(html) {
+          var el = document.createElement("li");
+          el.innerHTML = html;
+          return el;
+        }
+
+        function buildPayoff(secs) {
+          var title = $("payoffTitle"), sub = $("payoffSub"),
+              big = $("apptBig"), detail = $("apptDetail"),
+              num = $("revivalNum"), rtext = $("revivalText"),
+              list = $("crmUpdate"), icon = $("payoffIcon"),
+              box = $("apptBox");
+          list.innerHTML = "";
+
+          if (chosenReply === "no") {
+            step4.classList.add("neutral");
+            icon.textContent = "✓";
+            title.textContent = "Closed with respect — and that's a win too";
+            sub.textContent = "Not every revival ends in a booking. This one ends in a clean list, a respected opt-out, and a lead who'll remember being treated well.";
+            big.textContent = "Opt-out honored immediately";
+            detail.textContent = "One confirmation message, then silence — exactly what Emma asked for.";
+            num.textContent = secs + "s";
+            rtext.textContent = "from cold lead to a compliant, closed file — no chasing, no risk";
+            list.appendChild(li("<b>CRM status:</b> Cold → Closed (opted out)"));
+            list.appendChild(li("<b>Do-not-contact flag set</b> — removed from every current and future sequence"));
+            list.appendChild(li("<b>Compliance logged:</b> opt-out timestamped, single confirmation sent, nothing further"));
+            list.appendChild(li("<b>Reputation protected:</b> a clean “no” today beats a spam complaint tomorrow"));
+          } else {
+            var slotText = chosenReply === "day" ? chosenSlot : "Thursday, Oct 29 · 10:00 AM";
+            step4.classList.remove("neutral");
+            icon.textContent = "✓";
+            title.textContent = "Appointment re-booked";
+            sub.textContent = "A lead the CRM had written off 94 days ago now has a confirmed visit on the calendar — and Emma did none of the chasing. The sequence did.";
+            big.textContent = slotText;
+            detail.textContent = "Re-measure & quote-refresh visit · Emma R. · calendar invite + reminder sequence armed";
+            num.textContent = secs + "s";
+            rtext.textContent = "is all it took — 94 days cold → re-booked, start to finish";
+            list.appendChild(li("<b>CRM status:</b> Cold → Re-engaged → Booked"));
+            list.appendChild(li("<b>Appointment confirmed</b> with invite sent and reminders scheduled"));
+            list.appendChild(li("<b>Old quote reactivated</b> — design on file, pricing refresh queued for the visit"));
+            list.appendChild(li("<b>Rep notified</b> with the full conversation attached"));
+          }
+        }
+
+        /* ---------- Start over ---------- */
+        $("againBtn").addEventListener("click", function () {
+          window.location.reload();
+        });
+      })();
+    </script>
+  </body>
+</html>
