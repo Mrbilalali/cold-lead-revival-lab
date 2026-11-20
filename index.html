@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="color-scheme" content="light" />
     <link rel="icon" href="data:," />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
     <title>Cold-Lead Revival Lab</title>
     <meta property="og:title" content="Cold-Lead Revival Lab — AI Follow-Up Demo" />
     <meta property="og:description" content="Watch an AI follow-up sequence revive a 94-day-dead lead and re-book the appointment — in under 90 seconds. Scripted simulation." />
@@ -19,23 +22,23 @@
     <meta name="twitter:image" content="https://cold-lead-revival-lab-mr-bilal-alis-projects.vercel.app/og-image.png" />
     <style>
       :root {
-        --bg: #eef4ef;
-        --bg-deep: #e2ede3;
+        --bg: #fcfcff;
+        --bg-deep: #f4f5fe;
         --surface: #ffffff;
-        --surface-soft: #f5f9f5;
-        --ink: #18302a;
-        --ink-soft: #47635a;
-        --ink-faint: #71867d;
-        --accent: #0d6b4d;
-        --accent-dark: #084d36;
-        --accent-soft: #dcefe3;
-        --accent-line: #bcdcc9;
-        --amber: #9a6206;
-        --amber-bg: #fdf1d7;
-        --red: #a4342a;
-        --red-bg: #fbeae7;
-        --line: #d5e2d8;
-        --shadow: 0 10px 30px rgba(13, 70, 52, 0.10), 0 2px 6px rgba(13, 70, 52, 0.06);
+        --surface-soft: #f4f5fe;
+        --ink: #10101e;
+        --ink-soft: #4c4c60;
+        --ink-faint: #85859e;
+        --accent: #3233EF;
+        --accent-dark: #2b2bd0;
+        --accent-soft: #eef0fe;
+        --accent-line: #b9b9fb;
+        --amber: #d97706;
+        --amber-bg: #fdf1e0;
+        --red: #d64541;
+        --red-bg: #fdecec;
+        --line: #dddff2;
+        --shadow: 0 10px 30px rgba(16, 16, 30, 0.10), 0 2px 6px rgba(16, 16, 30, 0.06);
         --radius: 18px;
       }
       * { box-sizing: border-box; }
@@ -44,7 +47,7 @@
         margin: 0;
         background: var(--bg);
         color: var(--ink);
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
         font-size: 16px;
         line-height: 1.55;
         -webkit-font-smoothing: antialiased;
@@ -55,17 +58,18 @@
       .sim-badge {
         display: inline-flex; align-items: center; gap: 7px;
         background: var(--amber-bg); color: var(--amber);
-        border: 1px solid #ecd9a8;
+        border: 1px solid #eed9ae;
         font-size: 12.5px; font-weight: 700; letter-spacing: 0.02em;
         padding: 5px 11px; border-radius: 999px;
       }
       .sim-badge .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--amber); flex: none; }
       h1 {
-        font-family: Georgia, "Times New Roman", serif;
+        font-family: "Sora", ui-sans-serif, system-ui, sans-serif;
         font-size: clamp(30px, 7.5vw, 40px);
         line-height: 1.12; font-weight: 700;
         margin: 14px 0 10px; letter-spacing: -0.01em;
       }
+      h2 { font-family: "Sora", ui-sans-serif, system-ui, sans-serif; }
       .lede { margin: 0 0 6px; font-size: 17px; color: var(--ink-soft); max-width: 52ch; }
       .lede strong { color: var(--ink); }
       .byline { margin: 10px 0 0; font-size: 13.5px; color: var(--ink-faint); }
@@ -117,9 +121,9 @@
         margin-left: auto; flex: none;
         background: var(--red-bg); color: var(--red);
         font-size: 12px; font-weight: 800; padding: 5px 10px; border-radius: 999px;
-        border: 1px solid #efc9c3;
+        border: 1px solid #f0b3b0;
       }
-      .status-pill.live { background: var(--accent-soft); color: var(--accent-dark); border-color: var(--accent-line); }
+      .status-pill.live { background: #eef0fe; color: #2b2bd0; border-color: #ccd0fa; }
       .crm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 16px; margin: 0 0 16px; }
       .crm-grid dt { font-size: 11.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint); margin: 0; }
       .crm-grid dd { margin: 1px 0 0; font-size: 15px; font-weight: 600; }
@@ -138,15 +142,15 @@
         transition: background 0.15s ease, transform 0.1s ease;
       }
       .btn:active { transform: scale(0.985); }
-      .btn-primary { background: var(--accent); color: #fff; width: 100%; }
-      .btn-primary:hover { background: var(--accent-dark); }
-      .btn-primary:disabled { background: #9dbfab; cursor: default; }
+      .btn-primary { background: #e8590c; color: #fff; width: 100%; }
+      .btn-primary:hover { background: #d9480f; }
+      .btn-primary:disabled { background: #a7a7c4; cursor: default; }
       .btn-ghost {
         background: transparent; color: var(--accent-dark);
         border: 1.5px solid var(--accent-line); width: 100%;
       }
       .btn-ghost:hover { background: var(--accent-soft); }
-      .btn:focus-visible, .choice:focus-visible, .slot:focus-visible { outline: 3px solid #7cc7a5; outline-offset: 2px; }
+      .btn:focus-visible, .choice:focus-visible, .slot:focus-visible { outline: 3px solid #8383f7; outline-offset: 2px; }
 
       .timer-chip {
         display: none; align-items: center; gap: 7px;
@@ -178,7 +182,7 @@
       .msg .who { display: block; font-size: 11px; font-weight: 800; letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 4px; opacity: 0.75; }
       .msg.out { align-self: flex-end; background: var(--accent); color: #fff; border-bottom-right-radius: 5px; }
       .msg.in { align-self: flex-start; background: var(--surface-soft); border: 1px solid var(--line); border-bottom-left-radius: 5px; }
-      .msg.draft { align-self: stretch; max-width: 100%; background: #fffdf4; border: 1.5px dashed #d9c98a; color: var(--ink); border-radius: 14px; }
+      .msg.draft { align-self: stretch; max-width: 100%; background: #fdf1e0; border: 1.5px dashed #eed9ae; color: var(--ink); border-radius: 14px; }
       .msg.draft .who { color: var(--amber); opacity: 1; }
       .sys-note {
         align-self: center; text-align: center; font-size: 12.5px; font-weight: 600;
@@ -196,7 +200,7 @@
         border: 1.5px solid var(--accent-line); background: var(--accent-soft);
         border-radius: 14px; padding: 14px 16px; margin: 0 0 16px;
       }
-      .intent.negative { border-color: #efc9c3; background: var(--red-bg); }
+      .intent.negative { border-color: #f0b3b0; background: var(--red-bg); }
       .intent .row { display: flex; justify-content: space-between; gap: 12px; font-size: 14.5px; padding: 3px 0; }
       .intent .row .k { color: var(--ink-soft); font-weight: 600; }
       .intent .row .v { font-weight: 800; text-align: right; }
@@ -225,7 +229,7 @@
       .payoff.neutral { border-color: var(--line); }
       .payoff-icon {
         width: 56px; height: 56px; border-radius: 50%;
-        background: var(--accent); color: #fff;
+        background: #2b2bd0; color: #fff;
         display: flex; align-items: center; justify-content: center;
         font-size: 27px; font-weight: 800; margin-bottom: 12px;
       }
@@ -245,18 +249,18 @@
       .crm-update { margin: 0 0 18px; padding: 0; list-style: none; font-size: 14.5px; }
       .crm-update li { padding: 7px 0 7px 26px; position: relative; border-bottom: 1px solid var(--line); }
       .crm-update li:last-child { border-bottom: none; }
-      .crm-update li::before { content: "✓"; position: absolute; left: 2px; color: var(--accent); font-weight: 800; }
+      .crm-update li::before { content: "✓"; position: absolute; left: 2px; color: #2b2bd0; font-weight: 800; }
       .crm-update li b { font-weight: 800; }
 
       .cta-block {
-        background: var(--accent-dark); color: #eaf5ee; border-radius: var(--radius);
+        background: var(--accent-dark); color: #eef0fe; border-radius: var(--radius);
         padding: 22px 20px; margin-bottom: 16px; text-align: left;
       }
       .cta-block h2 { color: #fff; font-size: 21px; margin: 0 0 6px; }
-      .cta-block p { margin: 0 0 16px; font-size: 15px; color: #cfe7d8; }
+      .cta-block p { margin: 0 0 16px; font-size: 15px; color: #d5d5fc; }
       .cta-block .btn { background: #fff; color: var(--accent-dark); }
       .cta-block .btn:hover { background: var(--accent-soft); }
-      .cta-block .micro { font-size: 12.5px; color: #a9cdb8; margin: 10px 0 0; text-align: center; }
+      .cta-block .micro { font-size: 12.5px; color: #b9b9fb; margin: 10px 0 0; text-align: center; }
 
       footer { text-align: center; color: var(--ink-faint); font-size: 13px; padding: 6px 8px 0; }
       footer p { margin: 0 0 6px; }
